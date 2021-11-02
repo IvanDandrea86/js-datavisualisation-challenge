@@ -1,10 +1,10 @@
 (() => {
+    var el = document.getElementById('chart-area');
     var data = {
         categories: [],
         series: [{}, ],
     };
     const table1 = document.getElementById("table1")
-
     let getCategories = (elem) => {
         let years = Array.from(elem.querySelectorAll("tbody tr:nth-child(1) th"))
         years.forEach(element => {
@@ -42,13 +42,16 @@
     }
     getCategories(table1)
     getSeries(table1)
-    var options = {
-        chart: { title: 'Crimes recorded by the police', width: 800, height: 1000 },
+    const options = {
+        chart: { title: 'Crimes recorded by the police', width: 800, height: 800 },
         xAxis: {
             title: 'Year',
         },
         yAxis: {
-            title: 'Value',
+            title: 'Offence Recorded',
+        },
+        tooltip: {
+            formatter: (value) => `${value}x100`,
         },
         legend: {
             align: 'bottom',
@@ -59,11 +62,7 @@
             },
             showDot: true,
         },
-        tooltip: {
-            formatter: (value) => `${value}x1000`,
-        },
     };
-    var el = document.getElementById('chart-area');
 
-    const chart1 = toastui.Chart.lineChart({ el, data, options });
+    const chart = toastui.Chart.lineChart({ el, data, options });
 })();
