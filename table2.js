@@ -21,11 +21,10 @@
     }
     let fillChart = (element) => {
         let row = Array.from(element.querySelectorAll("tbody tr "))
-
         for (let i = 0; i < row.length; i++) {
             let child = row[i]
             let tableData = child.querySelectorAll("td")
-            data.categories.push(tableData.item(0).innerHTML.replace(/(\r\n|\n|\r|<br>)/gm, ""))
+            data.categories.push(tableData.item(0).innerHTML.replace(/(\r\n|\n|\r|<br>)/gm,"").replace(/( +)/gm," "))
             data.series[0].data.push(parseInt(tableData.item(1).innerHTML))
             data.series[1].data.push(parseInt(tableData.item(2).innerHTML))
         }
@@ -33,7 +32,6 @@
     const table2 = document.getElementById("table2")
     fillChart(table2)
     getName(table2)
-    console.log(data)
     const theme = {
         series: {
             colors: [
@@ -80,7 +78,7 @@
     };
 
     let options = {
-        chart: { title: 'Prison population, average per yea', width: 800, height: 1000 },
+        chart: { title: 'Prison population, average per year', width: 800, height: 1000 },
         xAxis: { pointOnColumn: false, title: { text: 'per 100,000 inhabitants' } },
         yAxis: { title: 'Nations' },
         series: { selectable: true, showDot: true },

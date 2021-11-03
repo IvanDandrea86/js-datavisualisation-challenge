@@ -23,13 +23,12 @@
             let child = row[i]
             let tableData = Array.from(child.querySelectorAll("td"))
             for (let y = 0; y < tableData.length; y++) {
-
                 if (y == 0) {
                     nationData.name = tableData[y].innerHTML
                 } else {
                     let x = parseFloat(tableData[y].innerHTML.replace(",", "."))
                     if (isNaN(x)) {
-                        nationData.data.push(0)
+                        nationData.data.push("") ///inNan
                     } else {
                         nationData.data.push(parseFloat(tableData[y].innerHTML.replace(",", ".")))
                     }
@@ -63,6 +62,5 @@
             showDot: true,
         },
     };
-
     const chart = toastui.Chart.lineChart({ el, data, options });
 })();
