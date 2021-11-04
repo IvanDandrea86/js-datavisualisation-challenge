@@ -33,8 +33,6 @@ const updateData=(chart)=>{
         fetch("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=10&length=1&type=json")
         .then(response=>response.json())
         .then(datas=> {
-            // console.log(datas)
-            // console.log(datas[0][1])
         data.series[0].data.push(datas[0][1])
         chart.addData([datas[0][1]], (len+1).toString());
         })
