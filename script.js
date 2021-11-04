@@ -12,7 +12,11 @@
         chart: { title: 'LiveData', width: 900, height: 400 },
         xAxis: { pointOnColumn: false, title: { text: 'X Title' } },
         yAxis: { title: 'Y Title' },
-        series: { shift: true },
+        series: { shift: true,
+            dataLabels: {
+                visible: true,
+            },
+            showDot: true, },
       };
 /**
  * Data Fetch Async Version
@@ -30,9 +34,10 @@ const updateData=(chart)=>{
     let index = 11;
     setInterval(() => {
         let len= data.series[0].data.length
-        fetch("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=10&length=1&type=json")
+        fetch("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=0&length=1&type=json")
         .then(response=>response.json())
         .then(datas=> {
+        console.log(datas[0][1])
         data.series[0].data.push(datas[0][1])
         chart.addData([datas[0][1]], (len+1).toString());
         })
