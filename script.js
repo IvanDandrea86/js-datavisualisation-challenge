@@ -11,7 +11,7 @@ Const an Variables
         ],
       };
       const options = {
-        chart: { title: 'LiveData', width: 900, height: 400 },
+        chart: { title: 'LiveData', width: 'auto', height: 'auto'  },
         xAxis: { pointOnColumn: false, title: { text: 'X Title' } },
         yAxis: { title: 'Y Title' },
         series: { shift: true,
@@ -39,23 +39,19 @@ const updateData=(chart)=>{
         let len= data.series[0].data.length
         dataFetchAsync("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=0&length=1&type=json")
         .then(datas=> {
-        console.log(datas[0][1])
         data.series[0].data.push(datas[0][1])
         chart.addData([datas[0][1]], (len+1).toString());
         })
     }, 1500);
 }
 window.addEventListener("load",()=>{
-    document.getElementById('firstHeading').insertAdjacentHTML('beforeend', "<div id='myChart'></div>");
+    document.getElementById('firstHeading').insertAdjacentHTML('beforeend', "<div id='myChart'style='width:100%; height:40vh'></div>");
     const el = document.getElementById('myChart');
     dataFetchAsync("https://canvasjs.com/services/data/datapoints.php")
     .then(dataset=>{
         let array=Array.from(dataset)
-        console.log(array)
         array.forEach(elem=>{
-            console.log(elem[1])
             data.series[0].data.push(elem[1])
-            console.log(data)
         })
         const chart = toastui.Chart.areaChart({ el, data, options });
         updateData(chart)

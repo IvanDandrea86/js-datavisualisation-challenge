@@ -7,7 +7,7 @@ var elem2 = document.getElementById('chart-area');
         series: [{}, ],
     };
     const options2 = {
-        chart: { title: 'Crimes recorded by the police', width: 800, height: 800 },
+        chart: { title: 'Crimes recorded by the police', width: 900, height: 500 },
         xAxis: {
             title: 'Year',
         },
@@ -15,16 +15,17 @@ var elem2 = document.getElementById('chart-area');
             title: 'Offence Recorded',
         },
         tooltip: {
-            formatter: (value) => `${value}x100`,
+            formatter: (value) => `${value}x1000`,
         },
         legend: {
-            align: 'bottom',
+            align: 'right',
         },
         series: {
             dataLabels: {
-                visible: true,
+                visible: false,
             },
-            showDot: true,
+            showDot: false,
+            zoomable: true, 
         },
     };
 /*===============
@@ -40,7 +41,7 @@ Function Declaration
         let chart = toastui.Chart.lineChart({ el, data, options });
     }
       /**
-     * Get Datas 
+     * Get Categories
      * @param {Object} element - HTML Element where search data
      * @param {Object} chart_data - Chart Datas
      */
@@ -51,7 +52,7 @@ Function Declaration
                 d.categories.push(element.innerHTML)
         });
     }
-     /**Get Datas 
+     /**Get Series
      * 
      * @param {Object} element - HTML Element where search data
      * @param {Object} chart_data - Chart Datas
@@ -63,6 +64,7 @@ Function Declaration
             let nationData = {
                 name: "",
                 data: [],
+                visible: false, //put data not visible for default
             }
             let child = row[i]
             let tableData = Array.from(child.querySelectorAll("td"))
@@ -74,10 +76,12 @@ Function Declaration
                     if (isNaN(x)) {
                         nationData.data.push("") ///inNan
                     } else {
-                        nationData.data.push(parseFloat(tableData[y].innerHTML.replace(",", ".")))
+                        nationData.data.push(x)
                     }
                 }
             }
+            if (nationData.data[1]>450)// i show only the big data
+            nationData.visible=true
             d.series.push(nationData)
         }
         d.series.shift()
