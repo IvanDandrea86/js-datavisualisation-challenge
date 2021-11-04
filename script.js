@@ -1,4 +1,6 @@
-      
+/*===============
+Const an Variables
+================*/  
       const data = {
         categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
         series: [
@@ -28,14 +30,14 @@ const dataFetchAsync=async(target)=>{
     const dataset  =await response.json()
     return dataset
 }
-      
+/**
+ * Update graph with TOAST UI 
+ * @param {Object} chart - chart object to update
+ */
 const updateData=(chart)=>{
-
-    let index = 11;
     setInterval(() => {
         let len= data.series[0].data.length
-        fetch("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=0&length=1&type=json")
-        .then(response=>response.json())
+        dataFetchAsync("https://canvasjs.com/services/data/datapoints.php?xstart="+(len+1)+"&ystart=0&length=1&type=json")
         .then(datas=> {
         console.log(datas[0][1])
         data.series[0].data.push(datas[0][1])
